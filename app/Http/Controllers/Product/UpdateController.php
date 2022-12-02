@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Models\ColorProduct;
 use App\Models\Product;
+use App\Models\ProductTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,31 +16,31 @@ class UpdateController extends Controller
     {
         $data = $updateRequest->validated();
 
-        $data['preview_image'] = Storage::disk('public')->delete('/images', $data['preview_image']);
+        // $data['preview_image'] = Storage::disk('public')->get('/images', $data['preview_image']);
 
-        $tagsIds = $data['tags'];
-        $colorsIds = $data['colors'];
+        // $tagsIds = $data['tags'];
+        // $colorsIds = $data['colors'];
 
-        unset($data['tags'], $data['colors']);
+        // unset($data['tags'], $data['colors']);
 
-        $product = Product::firstOrCreate([
-            'title' => $data['title']
-        ], $data);
+        // $product = Product::firstOrCreate([
+        //     'title' => $data['title']
+        // ], $data);
 
-        foreach($tagsIds as $tagId)
-        {
-            ProductTag::firstOrCreate([
-                'product_id' => $product->id,
-                'tag_id' => $tagId
-            ]);
-        }
-        foreach($colorsIds as $colorId)
-        {
-            ColorProduct::firstOrCreate([
-                'product_id' => $product->id,
-                'color_id' => $colorId
-            ]);
-        }
+        // foreach($tagsIds as $tagId)
+        // {
+        //     ProductTag::firstOrCreate([
+        //         'product_id' => $product->id,
+        //         'tag_id' => $tagId
+        //     ]);
+        // }
+        // foreach($colorsIds as $colorId)
+        // {
+        //     ColorProduct::firstOrCreate([
+        //         'product_id' => $product->id,
+        //         'color_id' => $colorId
+        //     ]);
+        // }
 
         return view('product.show', compact('product'));
     }

@@ -36,6 +36,11 @@
                                 <tr>
                                 <th>ID</th>
                                 <th>Denomination</th>
+                                <th>Description</th>
+                                <th>Content</th>
+                                <th>Price</th>
+                                <th>Count</th>
+                                <th>Preview image</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +48,11 @@
                                     <tr>
                                         <td>{{ $product->id }}</td>
                                         <td><a href="{{route('product.show', $product->id)}}">{{ $product->title }}</a></td>
+                                        <td>{{ $product->description }}</td>
+                                        <td>{{ $product->content }}</td>
+                                        <td>{{ $product->price }}</td>
+                                        <td>{{ $product->count }}</td>
+                                        <td><img style="max-width: 120px; max-height: 80px;" src=" {{ $product->imageUrl }}"></td>
                                     </tr>
                                 @endforeach
                             </tbody>

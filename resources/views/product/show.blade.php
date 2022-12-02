@@ -48,6 +48,30 @@
                                         <td>Denomination</td>
                                         <td>{{ $product->title }}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{{ $product->description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Content</td>
+                                        <td>{{ $product->content }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price</td>
+                                        <td>{{ $product->price }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Count</td>
+                                        <td>{{ $product->count }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Preview image</td>
+                                        <td><img style="max-width: 640px; max-height: 480px;" src=" {{ asset('storage/' . $product->preview_image) }}"></td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Count</td>
+                                        <td>{{ $product->count }}</td>
+                                    </tr> -->
                             </tbody>
                         </table>
                     </div>
