@@ -24,7 +24,7 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <form action="{{route('product.update', $product->id)}}" method="post">
+            <form action="{{route('product.update', $product->id)}}" method="patch" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <div class="form-group">
@@ -34,7 +34,7 @@
                     <input type="text" value="{{$product->description ?? old('description')}}" name="description" class="form-control" placeholder="Description">
                 </div>
                 <div class="form-group">
-                    <textarea name="content" value="{{$product->content ?? old('content')}}" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+                    <textarea name="content" class="form-control" cols="30" rows="10" placeholder="Content">{{$product->content ?? old('content')}}</textarea>
                 </div>
                 <div class="form-group">
                     <input type="number" value="{{$product->price ?? old('price')}}" name="price" class="form-control" placeholder="Price">
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">
+                        <input name="preview_image" type="file" class="custom-file-input" value="{{$product->image_url}}" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                       <div class="input-group-append">
@@ -55,9 +55,8 @@
                   </div>
                 <div class="form-group">
                   <select name="category_id" class="form-control select2" style="width: 100%;">
-                    <option selected="selected" disabled>Choose category</option>
                     @foreach($categories as $category)
-                        <option value="{{$category->id}}">{{$category->title}}</option>
+                        <option selected="{{$product->category->id === $category->id ? true : false}}" value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -76,7 +75,11 @@
                   </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Add">
+                  <label>Is published: </label>
+                  <input type="checkbox" name="is_published" value="{{$product->is_published}}" style="position: relative; left: 5%;">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Edit">
                 </div>
             </form>
         </div>

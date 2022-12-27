@@ -24,8 +24,9 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-        <form action="{{route('user.update', $user->id)}}" method="post">
-                @csrf
+        <form action="{{route('user.update', $user->id)}}" method="patch">
+            @csrf
+            @method('patch')
                 <div class="form-group">
                     <input type="text" value="{{$user->name ?? old('name')}}" name="name" class="form-control" placeholder="Name">
                 </div>
