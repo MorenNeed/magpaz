@@ -62,9 +62,9 @@ Route::group(['prefix' => 'categories'], function() {
     Route::get('/', CategoryIndexController::class)->name('category.index');
     Route::get('/create', CategoryCreateController::class)->name('category.create');
     Route::post('/', CategoryStoreController::class)->name('category.store');
-    Route::patch('/{category}/edit', CategoryEditController::class)->name('category.edit');
+    Route::get('/{category}/edit', CategoryEditController::class)->name('category.edit');
     Route::get('/{category}', CategoryShowController::class)->name('category.show');
-    Route::post('/{category}', CategoryUpdateController::class)->name('category.update');
+    Route::patch('/{category}', CategoryUpdateController::class)->name('category.update');
     Route::delete('/{category}', CategoryDeleteController::class)->name('category.delete');
 });
 
@@ -72,9 +72,9 @@ Route::group(['prefix' => 'tags'], function() {
     Route::get('/', TagIndexController::class)->name('tag.index');
     Route::get('/create', TagCreateController::class)->name('tag.create');
     Route::post('/', TagStoreController::class)->name('tag.store');
-    Route::patch('/{tag}/edit', TagEditController::class)->name('tag.edit');
+    Route::get('/{tag}/edit', TagEditController::class)->name('tag.edit');
     Route::get('/{tag}', TagShowController::class)->name('tag.show');
-    Route::post('/{tag}', TagUpdateController::class)->name('tag.update');
+    Route::patch('/{tag}', TagUpdateController::class)->name('tag.update');
     Route::delete('/{tag}', TagDeleteController::class)->name('tag.delete');
 });
 
@@ -82,9 +82,9 @@ Route::group(['prefix' => 'colors'], function() {
     Route::get('/', ColorIndexController::class)->name('color.index');
     Route::get('/create', ColorCreateController::class)->name('color.create');
     Route::post('/', ColorStoreController::class)->name('color.store');
-    Route::patch('/{color}/edit', ColorEditController::class)->name('color.edit');
+    Route::get('/{color}/edit', ColorEditController::class)->name('color.edit');
     Route::get('/{color}', ColorShowController::class)->name('color.show');
-    Route::post('/{color}', ColorUpdateController::class)->name('color.update');
+    Route::patch('/{color}', ColorUpdateController::class)->name('color.update');
     Route::delete('/{color}', ColorDeleteController::class)->name('color.delete');
 });
 
@@ -92,9 +92,9 @@ Route::group(['prefix' => 'users'], function() {
     Route::get('/', UserIndexController::class)->name('user.index');
     Route::get('/create', UserCreateController::class)->name('user.create');
     Route::post('/', UserStoreController::class)->name('user.store');
-    Route::patch('/{user}/edit', UserEditController::class)->name('user.edit');
+    Route::get('/{user}/edit', UserEditController::class)->name('user.edit');
     Route::get('/{user}', UserShowController::class)->name('user.show');
-    Route::post('/{user}', UserUpdateController::class)->name('user.update');
+    Route::patch('/{user}', UserUpdateController::class)->name('user.update');
     Route::delete('/{user}', UserDeleteController::class)->name('user.delete');
 });
 
@@ -102,8 +102,8 @@ Route::group(['prefix' => 'products'], function() {
     Route::get('/', ProductIndexController::class)->name('product.index');
     Route::get('/create', ProductCreateController::class)->name('product.create');
     Route::post('/', ProductStoreController::class)->name('product.store');
-    Route::patch('/{product}/edit', ProductEditController::class)->name('product.edit');
+    Route::get('/{product}/edit', ProductEditController::class)->name('product.edit');
     Route::get('/{product}', ProductShowController::class)->name('product.show');
-    Route::post('/{product}', ProductUpdateController::class)->name('product.update');
+    Route::patch('/{product}', ProductUpdateController::class)->name('product.update');
     Route::delete('/{product}', ProductDeleteController::class)->name('product.delete');
 });
