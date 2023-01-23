@@ -16,31 +16,38 @@ class UpdateController extends Controller
     {
         $data = $updateRequest->validated();
 
-        // $data['preview_image'] = Storage::disk('public')->get('/images', $data['preview_image']);
+        if($data['old_preview_image'] != $data['preview_image'])
+        {
+            Storage::disk('public')->delete($data['old_preview_image']);
+            $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
 
-        // $tagsIds = $data['tags'];
-        // $colorsIds = $data['colors'];
+        }
 
-        // unset($data['tags'], $data['colors']);
+        unset($data['old_preview_image']);
 
-        // $product = Product::firstOrCreate([
-        //     'title' => $data['title']
-        // ], $data);
+        $tagsIds = $data['tags'];
+        $colorsIds = $data['colors'];
 
-        // foreach($tagsIds as $tagId)
-        // {
-        //     ProductTag::firstOrCreate([
-        //         'product_id' => $product->id,
-        //         'tag_id' => $tagId
-        //     ]);
-        // }
-        // foreach($colorsIds as $colorId)
-        // {
-        //     ColorProduct::firstOrCreate([
-        //         'product_id' => $product->id,
-        //         'color_id' => $colorId
-        //     ]);
-        // }
+        unset($data['tags'], $data['colors']);
+
+        $product->update($data);
+
+        ProductTag::where('product_id', $product->id)->delete();
+        foreach($tagsIds as $tagId)
+        {
+            ProductTag::firstOrCreate([
+                'product_id' => $product->id,
+                'tag_id' => $tagId
+            ]);
+        }
+        ColorProduct::where('product_id', $product->id)->delete();
+        foreach($colorsIds as $colorId)
+        {
+            ColorProduct::firstOrCreate([
+                'product_id' => $product->id,
+                'color_id' => $colorId
+            ]);
+        }
 
         return view('product.show', compact('product'));
     }

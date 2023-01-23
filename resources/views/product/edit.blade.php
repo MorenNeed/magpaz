@@ -45,14 +45,25 @@
                 <div class="form-group">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input name="preview_image" type="file" class="custom-file-input" value="{{$product->image_url}}" id="exampleInputFile">
+                        <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile" onchange="PreviewImage();">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                       <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
+                        <img id="uploadPreview" style="width: 30px; height: 30px; margin-left: 10px;margin-top: 5px;">
                       </div>
+                      <script type="text/javascript">
+                          function PreviewImage() {
+                              var oFReader = new FileReader();
+                              oFReader.readAsDataURL(document.getElementById("exampleInputFile").files[0]);
+
+                              oFReader.onload = function (oFREvent) {
+                                  document.getElementById("uploadPreview").src = oFREvent.target.result;
+                              };
+                          };
+                      </script>
+                      <input name="old_preview_image" type="hidden" value="{{$product->preview_image}}">
                     </div>
-                  </div>
+                </div>
                 <div class="form-group">
                   <select name="category_id" class="form-control select2" style="width: 100%;">
                     @foreach($categories as $category)
@@ -63,7 +74,7 @@
                 <div class="form-group">
                   <select  name="tags[]" class="tags" multiple="multiple" data-placeholder="Select a Tag" style="width: 100%;">
                   @foreach($tags as $tag)
-                        <option value="{{$tag->id}}">{{$tag->title}}</option>
+                        <option selected="selected" value="{{$tag->id}}">{{$tag->title}}</option>
                     @endforeach
                   </select>
                 </div>
