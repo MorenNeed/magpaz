@@ -128,7 +128,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <span class="brand-text font-weight-light">{{config('app.name')}}</span>
     </a>
 
@@ -146,31 +146,31 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('product.index')}}" class="nav-link">
+            <a href="{{route('admin.product.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-boxes"></i>
                 <p>Products</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('category.index')}}" class="nav-link">
+            <a href="{{route('admin.category.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-tasks"></i>
                 <p>Categories</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('tag.index')}}" class="nav-link">
+            <a href="{{route('admin.tag.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-tags"></i>
                 <p>Tags</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('color.index')}}" class="nav-link">
+            <a href="{{route('admin.color.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-palette"></i>
                 <p>Colors</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('user.index')}}" class="nav-link">
+            <a href="{{route('admin.user.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>Users</p>
             </a>

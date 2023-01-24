@@ -9,6 +9,6 @@ class CreateController extends Controller
 {
     public function __invoke()
     {
-        return view('color.create');
+        return view('admin.color.create');
     }
 }

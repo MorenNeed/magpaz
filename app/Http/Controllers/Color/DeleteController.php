@@ -14,6 +14,6 @@ class DeleteController extends Controller
         ColorProduct::where("color_id", $color->id)->delete();
         $color->delete();
 
-        return redirect()->route('color.index');
+        return redirect()->route('admin.color.index');
     }
 }

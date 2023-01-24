@@ -14,6 +14,6 @@ class DeleteController extends Controller
         ProductTag::where('tag_id', $tag->id)->delete();
         $tag->delete();
 
-        return redirect()->route('tag.index');
+        return redirect()->route('admin.tag.index');
     }
 }

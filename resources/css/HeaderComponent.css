@@ -1,0 +1,184 @@
+.header-product
+{
+    height: 84px;
+}
+.navbar-product
+{
+    background-color: #fff !important;
+    border-bottom: 1px rgb(235, 235, 235) solid;
+}
+.navbar
+{
+    position: fixed;
+    background-color: transparent;
+    z-index: 10;
+    width: 100%;
+    height: 84px;
+    top: 0px;
+    left: 0px;
+    transition: background-color 0.3s, height 0.3s;
+    -webkit-transition: background-color 0.3s, height 0.3s;
+    -moz-transition: background-color 0.3s, height 0.3s;
+    -ms-transition: background-color 0.3s, height 0.3s;
+    -o-transition: background-color 0.3s, height 0.3s;
+}
+.navbar-fix
+{
+    height: 70px;
+    background-color: rgba(255,255,255,1);
+    box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);
+}
+.navbar .container
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    max-width: 1200px;
+}
+.navbar-brand
+{
+    display: flex;
+    align-items: center;
+    height: 65%;
+    margin-right: 55px;
+}
+.collapse
+{
+    visibility: visible;
+}
+.navbar-collapse
+{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.navbar-nav
+{
+    list-style-type: none;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+.navbar-nav > li
+{
+    display: block;
+    position: relative;
+    padding: 20px 10px 20px 0px;
+    margin: 0px 4px 0px 14px;
+}
+.nav-item .active
+{
+    color:rgb(160, 113, 95) !important;
+}
+.nav-item .active:hover
+{
+    color:rgb(71, 29, 1) !important;
+}
+#cartbutton
+{
+}
+.login
+{
+    display: flex;
+}
+.navbar-toggler
+{
+    position: absolute;
+    right: 20px;
+}
+.menu-show
+{
+    display: flex !important;
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    animation: menu-show-anim 0.4s;
+    -webkit-animation: menu-show-anim 0.4s;
+}
+.menu-hide
+{
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    animation: menu-show-anim 0.4s reverse, 0.8s menu-hide-anim 0.4s;
+    -webkit-animation: menu-show-anim 0.4s reverse, 0.8s menu-hide-anim 0.4s;
+}
+
+@media (max-width: 575px)
+{
+    .navbar
+    {
+        position: relative;
+    }
+    .navbar-nav > li
+    {
+        padding: 0px;
+    }
+    .me-auto
+    {
+        margin-right: 0 !important;
+    }
+    .navbar-collapse
+    {
+        position:absolute;
+        flex-direction: column;
+        padding-right: 10px;
+        right: 0;
+        padding-left: auto;
+        top: 84px;
+        width: 100%;
+        background-color: rgb(231, 231, 231);
+        height: 18rem;
+    }
+    #cartbutton
+    {
+        margin-top: 5px;
+    }
+    .login
+    {
+        margin-top: 5px;
+    }
+    .carousel-root
+    {
+        margin-top: 0rem;
+        transition: all 0.8s;
+        -webkit-transition: all 0.8s;
+        -moz-transition: all 0.8s;
+        -ms-transition: all 0.8s;
+        -o-transition: all 0.8s;
+    }
+}
+
+@keyframes menu-show-anim
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(-40%);
+        -webkit-transform: translateY(-40%);
+        -moz-transform: translateY(-40%);
+        -ms-transform: translateY(-40%);
+        -o-transform: translateY(-40%);
+    }
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -ms-transform: translateY(0%);
+        -o-transform: translateY(0%);
+    }
+}
+@keyframes menu-hide-anim
+{
+    100%
+    {
+        display: none;
+    }
+}

@@ -42,6 +42,6 @@ class StoreController extends Controller
             ]);
         }
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 }

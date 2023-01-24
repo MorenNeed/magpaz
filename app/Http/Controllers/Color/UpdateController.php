@@ -14,6 +14,6 @@ class UpdateController extends Controller
         $data = $updateRequest->validated();
         $color->update($data);
 
-        return view('color.show', compact('color'));
+        return view('admin.color.show', compact('color'));
     }
 }

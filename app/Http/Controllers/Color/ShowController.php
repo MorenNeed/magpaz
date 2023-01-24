@@ -10,6 +10,6 @@ class ShowController extends Controller
 {
     public function __invoke(Color $color)
     {
-        return view('color.show', compact('color'));
+        return view('admin.color.show', compact('color'));
     }
 }

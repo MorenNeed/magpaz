@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*==================================================================
+   BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 
+==================================================================*/
+
+.bg-none {background-color: transparent;}
+.bg0 {background-color: #fff;}
+.bg1 {background-color: #717fe0;}
+.bg2 {background-color: #e6e6e6;}
+.bg3 {background-color: #222;}
+.bg5 {background-color: rgba(0,0,0,0.5);}
+.bg6 {background-color: #f2f2f2;}
+.bg7 {background-color: #333;}
+.bg8 {background-color: #f3f3f3;}
+.bg9 {background-color: rgba(255,255,255,0.9);}
+
+.p-t-23
+{
+    padding-top: 23px;
+}
+.p-b-140
+{
+    padding-bottom: 140px;
+}
+.ltext-103
+{
+    font-family: Poppins-Bold;
+    font-size: 36px;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("/resources/assets/Poppins-Bold.ttf");
+}
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("/resources/assets/Poppins-Medium.ttf");
+}
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("/resources/assets/Poppins-Regular.ttf");
+}
+@font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("/resources/assets/Poppins-SemiBold.ttf");
+}

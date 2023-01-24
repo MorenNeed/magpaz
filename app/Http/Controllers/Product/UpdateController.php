@@ -49,6 +49,6 @@ class UpdateController extends Controller
             ]);
         }
 
-        return view('product.show', compact('product'));
+        return view('admin.product.show', compact('product'));
     }
 }

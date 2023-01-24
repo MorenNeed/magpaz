@@ -18,6 +18,6 @@ class DeleteController extends Controller
         Storage::disk('public')->delete($product->preview_image);
         $product->delete();
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 }

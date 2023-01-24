@@ -11,6 +11,6 @@ class IndexController extends Controller
     public function __invoke()
     {
         $colors = Color::all();
-        return view('color.index', compact('colors'));
+        return view('admin.color.index', compact('colors'));
     }
 }
