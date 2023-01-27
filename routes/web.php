@@ -74,56 +74,56 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', IndexController::class)->name('main.index');
+Route::get('/admin', IndexController::class)->middleware(['auth', 'verified.admin'])->name('main.index');
 
 Route::group(['prefix' => 'admin/categories'], function() {
-        Route::get('/', CategoryIndexController::class)->name('admin.category.index');
-        Route::get('/create', CreateController::class)->name('admin.category.create');
-        Route::post('/', StoreController::class)->name('admin.category.store');
-        Route::get('/{category}/edit', EditController::class)->name('admin.category.edit');
-        Route::get('/{category}', ShowController::class)->name('admin.category.show');
-        Route::patch('/{category}', UpdateController::class)->name('admin.category.update');
-        Route::delete('/{category}', DeleteController::class)->name('admin.category.delete');
+        Route::get('/', CategoryIndexController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.index');
+        Route::get('/create', CreateController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.create');
+        Route::post('/', StoreController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.store');
+        Route::get('/{category}/edit', EditController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.edit');
+        Route::get('/{category}', ShowController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.show');
+        Route::patch('/{category}', UpdateController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.update');
+        Route::delete('/{category}', DeleteController::class)->middleware(['auth', 'verified.admin'])->name('admin.category.delete');
     }); 
      
     Route::group(['prefix' => 'admin/tags'], function() { 
-     Route::get('/', TagIndexController::class)->name('admin.tag.index'); 
-     Route::get('/create', TagCreateController::class)->name('admin.tag.create'); 
-     Route::post('/', TagStoreController::class)->name('admin.tag.store'); 
-     Route::get('/{tag}/edit', TagEditController::class)->name('admin.tag.edit'); 
-     Route::get('/{tag}', TagShowController::class)->name('admin.tag.show'); 
-     Route::patch('/{tag}', TagUpdateController::class)->name('admin.tag.update'); 
-     Route::delete('/{tag}', TagDeleteController::class)->name('admin.tag.delete'); 
+     Route::get('/', TagIndexController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.index'); 
+     Route::get('/create', TagCreateController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.create'); 
+     Route::post('/', TagStoreController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.store'); 
+     Route::get('/{tag}/edit', TagEditController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.edit'); 
+     Route::get('/{tag}', TagShowController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.show'); 
+     Route::patch('/{tag}', TagUpdateController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.update'); 
+     Route::delete('/{tag}', TagDeleteController::class)->middleware(['auth', 'verified.admin'])->name('admin.tag.delete'); 
     }); 
      
     Route::group(['prefix' => 'admin/colors'], function() { 
-     Route::get('/', ColorIndexController::class)->name('admin.color.index'); 
-     Route::get('/create', ColorCreateController::class)->name('admin.color.create'); 
-     Route::post('/', ColorStoreController::class)->name('admin.color.store'); 
-     Route::get('/{color}/edit', ColorEditController::class)->name('admin.color.edit'); 
-     Route::get('/{color}', ColorShowController::class)->name('admin.color.show'); 
-     Route::patch('/{color}', ColorUpdateController::class)->name('admin.color.update'); 
-     Route::delete('/{color}', ColorDeleteController::class)->name('admin.color.delete'); 
+     Route::get('/', ColorIndexController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.index'); 
+     Route::get('/create', ColorCreateController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.create'); 
+     Route::post('/', ColorStoreController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.store'); 
+     Route::get('/{color}/edit', ColorEditController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.edit'); 
+     Route::get('/{color}', ColorShowController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.show'); 
+     Route::patch('/{color}', ColorUpdateController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.update'); 
+     Route::delete('/{color}', ColorDeleteController::class)->middleware(['auth', 'verified.admin'])->name('admin.color.delete'); 
     }); 
      
     Route::group(['prefix' => 'admin/users'], function() { 
-     Route::get('/', UserIndexController::class)->name('admin.user.index'); 
-     Route::get('/create', UserCreateController::class)->name('admin.user.create'); 
-     Route::post('/', UserStoreController::class)->name('admin.user.store'); 
-     Route::get('/{user}/edit', UserEditController::class)->name('admin.user.edit'); 
-     Route::get('/{user}', UserShowController::class)->name('admin.user.show'); 
-     Route::patch('/{user}', UserUpdateController::class)->name('admin.user.update'); 
-     Route::delete('/{user}', UserDeleteController::class)->name('admin.user.delete'); 
+     Route::get('/', UserIndexController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.index'); 
+     Route::get('/create', UserCreateController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.create'); 
+     Route::post('/', UserStoreController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.store'); 
+     Route::get('/{user}/edit', UserEditController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.edit'); 
+     Route::get('/{user}', UserShowController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.show'); 
+     Route::patch('/{user}', UserUpdateController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.update'); 
+     Route::delete('/{user}', UserDeleteController::class)->middleware(['auth', 'verified.admin'])->name('admin.user.delete'); 
     }); 
      
     Route::group(['prefix' => 'admin/products'], function() { 
-     Route::get('/', ProductIndexController::class)->name('admin.product.index'); 
-     Route::get('/create', ProductCreateController::class)->name('admin.product.create'); 
-     Route::post('/', ProductStoreController::class)->name('admin.product.store'); 
-     Route::get('/{product}/edit', ProductEditController::class)->name('admin.product.edit'); 
-     Route::get('/{product}', ProductShowController::class)->name('admin.product.show'); 
-     Route::patch('/{product}', ProductUpdateController::class)->name('admin.product.update'); 
-     Route::delete('/{product}', ProductDeleteController::class)->name('admin.product.delete'); 
+     Route::get('/', ProductIndexController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.index'); 
+     Route::get('/create', ProductCreateController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.create'); 
+     Route::post('/', ProductStoreController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.store'); 
+     Route::get('/{product}/edit', ProductEditController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.edit'); 
+     Route::get('/{product}', ProductShowController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.show'); 
+     Route::patch('/{product}', ProductUpdateController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.update'); 
+     Route::delete('/{product}', ProductDeleteController::class)->middleware(['auth', 'verified.admin'])->name('admin.product.delete'); 
     });
 
 Route::middleware('auth')->group(function () {

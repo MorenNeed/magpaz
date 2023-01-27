@@ -1,7 +1,9 @@
 import React from "react";
-import ProductItemElement from "../Elements/ProductItemElement";
 //import { Card, Container, Row, Col, ListGroup } from "react-bootstrap";
 import '../../css/ProductComponent.css';
+import SortItemsElement from "@/Elements/SortItmesElement";
+import ProductItemElement from "@/Elements/ProductItemElement";
+
 // import '../css/main.css';
 // import '../css/util.css';
 
@@ -11,12 +13,33 @@ export default class ProductComponent extends React.Component
     {
       super(props);
       this.state = {
-        categoryFilter: '',
+        products: [],
         overviewClass: '',
+        categoryFilter: "all",
+        sortBy: {SortCategory: " ", SortElement: " "}
       };
+
+      this.handleCategoryFilterClick = this.handleCategoryFilterClick.bind(this);
     }
-    handleCategoryFilter(event)
+    filter() //(a, b) => (a.price < b.price) ? 1 : -1
     {
+        if(this.state.categoryFilter != "all")
+        {
+            const filteredData = this.state.products.filter(product => product.category == this.state.categoryFilter);
+            this.setState({products: filteredData});
+        }
+    }
+    handleCategoryFilterClick(event)
+    {
+      // document
+      console.log(event.target.datafilter);
+
+      this.setState({categoryFilter : event.target.datafilter});
+      this.filter();
+    }
+    handleSortByClick(event)
+    {
+      this.setState({sortBy : {SortCategory : event.target.filter-type, SortElement: event.target.data-filter}});
     }
     componentDidMount()
     {
@@ -60,6 +83,9 @@ export default class ProductComponent extends React.Component
       }
     }
     render(){
+      this.state.products = this.props.products.map(product => (
+        <ProductItemElement key={product.id} product={product}/>
+      ));
         return(
           <>
             {/* Section */}
@@ -73,11 +99,11 @@ export default class ProductComponent extends React.Component
 
                 <div class="filter-table">
                   <div class="filter-categories">
-                    <button class="filter-category hov-active" data-filter="*">
+                    <button class="filter-category hov-active" datafilter="all" onClick={this.handleCategoryFilterClick}>
                       All Products
                     </button>
                     {this.props.categories.map(category => (
-                      <button id={category.id} class="filter-category" data-filter={category.title} onClick={this.handleCategoryFilter}>
+                      <button id={category.id} class="filter-category" datafilter={category.title} onClick={this.handleCategoryFilterClick}>
                         {category.title}
                       </button>
                     ))}
@@ -118,37 +144,37 @@ export default class ProductComponent extends React.Component
 
                         <ul>
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="default">
                               Default
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="popularity">
                               Popularity
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="averageRating">
                               Average rating
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link filter-link-active">
+                            <a href="#" class="filter-link filter-link-active" filter-type="sortBy" data-filter="newness">
                               Newness
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="lth">
                               Price: Low to High
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="htl">
                               Price: High to Low
                             </a>
                           </li>
@@ -162,37 +188,37 @@ export default class ProductComponent extends React.Component
 
                         <ul>
                           <li class="col-li">
-                            <a href="#" class="filter-link filter-link-active">
+                            <a href="#" class="filter-link filter-link-active" filter-type="price" data-filter="all">
                               All
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="price" data-filter="050">
                               $0.00 - $50.00
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="price" data-filter="50100">
                               $50.00 - $100.00
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="price" data-filter="100150">
                               $100.00 - $150.00
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="price" data-filter="150200">
                               $150.00 - $200.00
                             </a>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="price" data-filter="200+">
                               $200.00+
                             </a>
                           </li>
@@ -210,7 +236,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link">
+                            <a href="#" class="filter-link" filter-type="color" data-filter="black">
                               Black
                             </a>
                           </li>
@@ -299,9 +325,7 @@ export default class ProductComponent extends React.Component
                 </div>
 
                 <div class="row isotope-grid">
-                  {this.props.products.map(product => (
-                    <ProductItemElement key={product.id} product={product}/>
-                  ))}
+                  {this.state.products}
                 </div>
 
                 {/* <!-- Load more --> */}
