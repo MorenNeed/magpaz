@@ -25,7 +25,7 @@ export default class ProductItemElement extends React.Component
                             </a>
 
                             <span class="stext-105 cl3">
-                            {this.props.product.price} UAN
+                            {this.props.product.price} UAH
                             </span>
                         </div>
 

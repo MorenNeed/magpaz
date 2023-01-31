@@ -16,7 +16,7 @@ export default class BannerComponent extends React.Component
                                         <img src="images/banner-01.jpg" alt="IMG-BANNER"></img>
                                         <a className="block-txt" href="product.html">
                                             <div className="block-txt-filling">
-                                                <span className="block-name">Women</span>
+                                                <span className="block-name">Puzzles</span>
                                             </div>
                                             <div className="block-txt-filling1">
                                                 <div className="block-link">Shop Now</div>
@@ -29,7 +29,7 @@ export default class BannerComponent extends React.Component
                                         <img src="images/banner-02.jpg" alt="IMG-BANNER"></img>
                                         <a className="block-txt" href="product.html">
                                             <div className="block-txt-filling">
-                                                <span className="block-name">Man</span>
+                                                <span className="block-name">Paintings by numbers</span>
                                             </div>
                                             <div className="block-txt-filling1">
                                                 <div className="block-link">Shop Now</div>
@@ -42,7 +42,7 @@ export default class BannerComponent extends React.Component
                                         <img src="images/banner-03.jpg" alt="IMG-BANNER"></img>
                                         <a className="block-txt" href="product.html">
                                             <div className="block-txt-filling">
-                                                <span className="block-name">Accessories</span>
+                                                <span className="block-name">Stained glass</span>
                                             </div>
                                             <div className="block-txt-filling1">
                                                 <div className="block-link">Shop Now</div>

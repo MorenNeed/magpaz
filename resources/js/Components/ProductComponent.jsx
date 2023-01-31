@@ -1,7 +1,6 @@
 import React from "react";
 //import { Card, Container, Row, Col, ListGroup } from "react-bootstrap";
 import '../../css/ProductComponent.css';
-import SortItemsElement from "@/Elements/SortItmesElement";
 import ProductItemElement from "@/Elements/ProductItemElement";
 
 // import '../css/main.css';
@@ -13,33 +12,119 @@ export default class ProductComponent extends React.Component
     {
       super(props);
       this.state = {
+        bypriceproducts: [],
         products: [],
         overviewClass: '',
         categoryFilter: "all",
         sortBy: {SortCategory: " ", SortElement: " "}
       };
 
+      this.handleSortByClick = this.handleSortByClick.bind(this);
       this.handleCategoryFilterClick = this.handleCategoryFilterClick.bind(this);
     }
-    filter() //(a, b) => (a.price < b.price) ? 1 : -1
+    filter(TimeoutTime)
     {
+      setTimeout(() => {
+        if(this.state.categoryFilter == "all")
+        {
+          this.setState({products: this.props.products});
+        }
         if(this.state.categoryFilter != "all")
         {
-            const filteredData = this.state.products.filter(product => product.category == this.state.categoryFilter);
+            const filteredData = this.props.products.filter(product => product.category.title == this.state.categoryFilter);
             this.setState({products: filteredData});
         }
+      }, TimeoutTime);
+    }
+    sort(TimeoutTime)
+    {
+      setTimeout(() => {
+        if(this.state.sortBy.SortCategory == "sortBy")
+        {
+          if(this.state.sortBy.SortElement == "default")
+          {
+            const SortedData = this.state.products.sort((a, b) => (a.id > b.id) ? 1 : -1);
+            this.setState({products: SortedData});
+          }
+          else if(this.state.sortBy.SortElement == "lth")
+          {
+            const SortedData = this.state.products.sort((a, b) => (a.price > b.price) ? 1 : -1);
+            this.setState({products: SortedData});
+          }
+          else if(this.state.sortBy.SortElement == "htl")
+          {
+            const SortedData = this.state.products.sort((a, b) => (a.price < b.price) ? 1 : -1);
+            this.setState({products: SortedData});
+          }
+        }
+        if(this.state.sortBy.SortCategory == "price")
+        {
+          if(this.state.sortBy.SortElement == "all")
+          {
+            this.filter(0);
+          }
+          else if(this.state.sortBy.SortElement == "0150")
+          {
+            this.filter(0);
+            setTimeout(() => {
+              const filteredData = this.state.products.filter(product => (product.price >= 0 && product.price <=150));
+              this.setState({products: filteredData});
+            }, 200);
+          }
+          else if(this.state.sortBy.SortElement == "150300")
+          {
+            this.filter(0);
+            setTimeout(() => {
+              const filteredData = this.state.products.filter(product => (product.price >= 150 && product.price <=300));
+              this.setState({products: filteredData});
+            }, 200);
+          }
+          else if(this.state.sortBy.SortElement == "300450")
+          {
+            this.filter(0);
+            setTimeout(() => {
+              const filteredData = this.state.products.filter(product => (product.price >= 300 && product.price <=450));
+              this.setState({products: filteredData});
+            }, 200);
+          }
+          else if(this.state.sortBy.SortElement == "450600")
+          {
+            this.filter(0);
+            setTimeout(() => {
+              const filteredData = this.state.products.filter(product => (product.price >= 450 && product.price <=600));
+              this.setState({products: filteredData});
+            }, 200);
+          }
+          else if(this.state.sortBy.SortElement == "600+")
+          {
+            this.filter(0);
+            setTimeout(() => {
+              const filteredData = this.state.products.filter(product => (product.price > 600));
+              this.setState({products: filteredData});
+            }, 200);
+          }
+        }
+      }, TimeoutTime);
     }
     handleCategoryFilterClick(event)
     {
-      // document
-      console.log(event.target.datafilter);
-
-      this.setState({categoryFilter : event.target.datafilter});
-      this.filter();
+      document.getElementsByClassName('hov-active')[0].classList.remove('hov-active');
+      event.target.classList.add('hov-active');
+      this.setState({categoryFilter : event.target.getAttribute('datafilter')});
+      this.filter(200);
     }
     handleSortByClick(event)
     {
-      this.setState({sortBy : {SortCategory : event.target.filter-type, SortElement: event.target.data-filter}});
+      let activeSort = document.querySelectorAll(`[filtertype=${event.target.getAttribute('filtertype')}]`);
+      activeSort.forEach(item => {
+        if(item.classList.contains('filter-link-active'))
+        {
+          item.classList.remove('filter-link-active');
+        }
+      });
+      event.target.classList.add('filter-link-active');
+      this.setState({sortBy : {SortCategory : event.target.getAttribute('filtertype'), SortElement: event.target.getAttribute('datafilter')}});
+      this.sort(200);
     }
     componentDidMount()
     {
@@ -82,10 +167,11 @@ export default class ProductComponent extends React.Component
         }
       }
     }
+    componentWillMount()
+    {
+      this.filter(3000);
+    }
     render(){
-      this.state.products = this.props.products.map(product => (
-        <ProductItemElement key={product.id} product={product}/>
-      ));
         return(
           <>
             {/* Section */}
@@ -144,39 +230,39 @@ export default class ProductComponent extends React.Component
 
                         <ul>
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="default">
+                            <button class="filter-link filter-link-active" filtertype="sortBy" datafilter="default" onClick={this.handleSortByClick}>
                               Default
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="popularity">
+                            <button class="filter-link" filtertype="sortBy" datafilter="popularity" onClick={this.handleSortByClick}>
                               Popularity
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="averageRating">
+                            <button class="filter-link" filtertype="sortBy" datafilter="averageRating" onClick={this.handleSortByClick}>
                               Average rating
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link filter-link-active" filter-type="sortBy" data-filter="newness">
+                            <button class="filter-link" filtertype="sortBy" datafilter="newness" onClick={this.handleSortByClick}>
                               Newness
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="lth">
+                            <button class="filter-link" filtertype="sortBy" datafilter="lth" onClick={this.handleSortByClick}>
                               Price: Low to High
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="sortBy" data-filter="htl">
+                            <button class="filter-link" filtertype="sortBy" datafilter="htl" onClick={this.handleSortByClick}>
                               Price: High to Low
-                            </a>
+                            </button>
                           </li>
                         </ul>
                       </div>
@@ -188,39 +274,39 @@ export default class ProductComponent extends React.Component
 
                         <ul>
                           <li class="col-li">
-                            <a href="#" class="filter-link filter-link-active" filter-type="price" data-filter="all">
+                            <button class="filter-link filter-link-active" filtertype="price" datafilter="all" onClick={this.handleSortByClick}>
                               All
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="price" data-filter="050">
-                              $0.00 - $50.00
-                            </a>
+                            <button class="filter-link" filtertype="price" datafilter="0150" onClick={this.handleSortByClick}>
+                              0.00UAH - 150.00UAH
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="price" data-filter="50100">
-                              $50.00 - $100.00
-                            </a>
+                            <button class="filter-link" filtertype="price" datafilter="150300" onClick={this.handleSortByClick}>
+                              150.00UAH - 300.00UAH
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="price" data-filter="100150">
-                              $100.00 - $150.00
-                            </a>
+                            <button class="filter-link" filtertype="price" datafilter="300450" onClick={this.handleSortByClick}>
+                              300.00UAH - 450.00UAH
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="price" data-filter="150200">
-                              $150.00 - $200.00
-                            </a>
+                            <button class="filter-link" filtertype="price" datafilter="450600" onClick={this.handleSortByClick}>
+                              450.00UAH - 600.00UAH
+                            </button>
                           </li>
 
                           <li class="col-li">
-                            <a href="#" class="filter-link" filter-type="price" data-filter="200+">
-                              $200.00+
-                            </a>
+                            <button class="filter-link" filtertype="price" datafilter="600+" onClick={this.handleSortByClick}>
+                              600.00+ UAH
+                            </button>
                           </li>
                         </ul>
                       </div>
@@ -236,9 +322,9 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link" filter-type="color" data-filter="black">
+                            <button class="filter-link" filtertype="color" datafilter="black">
                               Black
-                            </a>
+                            </button>
                           </li>
 
                           <li class="col-li">
@@ -246,7 +332,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link filter-link-active">
+                            <a class="filter-link filter-link-active">
                               Blue
                             </a>
                           </li>
@@ -256,7 +342,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link">
+                            <a class="filter-link">
                               Grey
                             </a>
                           </li>
@@ -266,7 +352,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link">
+                            <a class="filter-link">
                               Green
                             </a>
                           </li>
@@ -276,7 +362,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle-fill"></i>
                             </span>
 
-                            <a href="#" class="filter-link">
+                            <a class="filter-link">
                               Red
                             </a>
                           </li>
@@ -286,7 +372,7 @@ export default class ProductComponent extends React.Component
                               <i class="bi bi-circle"></i>
                             </span>
 
-                            <a href="#" class="filter-link">
+                            <a class="filter-link">
                               White
                             </a>
                           </li>
@@ -325,7 +411,9 @@ export default class ProductComponent extends React.Component
                 </div>
 
                 <div class="row isotope-grid">
-                  {this.state.products}
+                  {this.state.products.map(product => (
+                    <ProductItemElement key={product.id} product={product}/>
+                  )).slice(0,5)}
                 </div>
 
                 {/* <!-- Load more --> */}

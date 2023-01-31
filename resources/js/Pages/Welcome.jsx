@@ -19,6 +19,12 @@ export default class MainPage extends React.Component
   }
   componentDidMount()
   {
+    setTimeout(() => {
+        document.getElementById('loader').classList.add('hide-loader-container');
+      }, 2000);
+  }
+  componentWillMount()
+  {
     fetch('http://localhost:8000/api/products')
     .then(response => response.json())
     .then(function(data){
@@ -29,11 +35,7 @@ export default class MainPage extends React.Component
     .then(function(data){
       this.setState({categories: data.data});
     }.bind(this));
-    setTimeout(() => {
-        document.getElementById('loader').classList.add('hide-loader-container');
-      }, 2000);
   }
-
   render()
   {
     document.title = "MagPaz";
