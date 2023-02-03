@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\Category\IndexController as CategoryIndexController;
+use App\Http\Controllers\API\Color\IndexController as ColorIndexController;
 use App\Http\Controllers\API\Product\IndexController;
+use App\Http\Controllers\API\Tag\IndexController as TagIndexController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/products', IndexController::class);
 
 Route::get('/categories', CategoryIndexController::class);
+
+Route::get('/tags', TagIndexController::class);
+
+Route::get('/colors', ColorIndexController::class);

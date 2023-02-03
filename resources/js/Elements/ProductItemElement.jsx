@@ -3,6 +3,15 @@ import "../../css/ProductItemElement.css";
 
 export default class ProductItemElement extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick(event)
+    {
+        document.getElementById("wrap-modal" + this.props.product.id).classList.add('show-modal');
+    }
     render()
     {
         return (
@@ -18,9 +27,9 @@ export default class ProductItemElement extends React.Component
                             alt="IMG-PRODUCT"
                         />
 
-                        <a href="#" className="block-product-btn">
+                        <button className="block-product-btn" onClick={this.handleClick}>
                             Quick View
-                        </a>
+                        </button>
                     </div>
 
                     <div className="block-product-txt">

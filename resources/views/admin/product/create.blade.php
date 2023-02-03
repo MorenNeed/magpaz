@@ -70,7 +70,7 @@
                 <div class="form-group">
                   <select name="colors[]" class="colors" multiple="multiple" data-placeholder="Select a Color" style="width: 100%;">
                   @foreach($colors as $color)
-                        <option value="{{$color->id}}">{{$color->title}}</option>
+                        <option style="background-color: {{$color->color}}" value="{{$color->id}}">{{$color->title}}</option>
                     @endforeach
                   </select>
                 </div>

@@ -51,7 +51,7 @@
                                     </tr>
                                     <tr>
                                         <td>Color</td>
-                                        <td>{{'#' . $color->title }}</td>
+                                        <td>{{$color->color }}</td>
                                     </tr>
                             </tbody>
                         </table>

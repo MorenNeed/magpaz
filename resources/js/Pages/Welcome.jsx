@@ -14,7 +14,9 @@ export default class MainPage extends React.Component
     super(props);
     this.state = {
       products: [],
-      categories: []
+      categories: [],
+      tags: [],
+      colors: []
     };
   }
   componentDidMount()
@@ -35,10 +37,19 @@ export default class MainPage extends React.Component
     .then(function(data){
       this.setState({categories: data.data});
     }.bind(this));
+    fetch('http://localhost:8000/api/tags')
+    .then(response => response.json())
+    .then(function(data){
+      this.setState({tags: data.data});
+    }.bind(this));
+    fetch('http://localhost:8000/api/colors')
+    .then(response => response.json())
+    .then(function(data){
+      this.setState({colors: data.data});
+    }.bind(this));
   }
   render()
   {
-    document.title = "MagPaz";
     window.addEventListener('scroll', () => {
       let activeClass = '';
       if(window.scrollY > 342){
@@ -57,7 +68,7 @@ export default class MainPage extends React.Component
         <CartComponent/>
         <SliderComponent/>
         <BannerComponent/>
-        <ProductComponent products={this.state.products} categories={this.state.categories}/>
+        <ProductComponent products={this.state.products} categories={this.state.categories} tags={this.state.tags} colors={this.state.colors}/>
         <FooterComponent/>
       </>
     );
