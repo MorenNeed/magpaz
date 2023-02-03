@@ -10,18 +10,18 @@ export default class SliderComponent extends React.Component
     {
         return(
             <>
-            <Carousel autoPlay={true} interval={5000} infiniteLoop={true} dynamicHeight={true} swipeable={true} showStatus={false} animationHandler={"fade"}>
-                <div class="container wrap-container" style={{backgroundImage: "url('images/slide-01.jpg')"}}>
-                    <div class="wrap-category-container">
-                        <div class="category-container">
-                            <div class="wrap-category d-flex h-full p-5">
-                                <div class="layer-slick">
-                                    <h2 class="category">
+            <Carousel autoPlay={true} interval={5000} showThumbs={false} infiniteLoop={true} dynamicHeight={true} swipeable={true} showStatus={false} animationHandler={"fade"}>
+                <div className="container wrap-container" style={{backgroundImage: "url('images/slide-01.jpg')"}}>
+                    <div className="wrap-category-container">
+                        <div className="category-container">
+                            <div className="wrap-category d-flex h-full p-5">
+                                <div className="layer-slick">
+                                    <h2 className="category">
                                         New arrivals
                                     </h2>
                                 </div>
-                                <div class="layer-slick shop-button-layer">
-                                    <a href="product.html" class="shop-button">
+                                <div className="layer-slick shop-button-layer">
+                                    <a href="product.html" className="shop-button">
                                         Shop Now
                                     </a>
                                 </div>
@@ -29,17 +29,17 @@ export default class SliderComponent extends React.Component
                         </div>
                     </div>
                 </div>
-                <div class="container wrap-container" style={{backgroundImage: "url('images/slide-02.jpg')"}}>
-                    <div class="wrap-category-container">
-                        <div class="category-container">
-                            <div class="wrap-category d-flex h-full p-5">
-                                <div class="layer-slick">
-                                    <h2 class="category">
+                <div className="container wrap-container" style={{backgroundImage: "url('images/slide-02.jpg')"}}>
+                    <div className="wrap-category-container">
+                        <div className="category-container">
+                            <div className="wrap-category d-flex h-full p-5">
+                                <div className="layer-slick">
+                                    <h2 className="category">
                                         New arrivals
                                     </h2>
                                 </div>
-                                <div class="layer-slick shop-button-layer">
-                                    <a href="product.html" class="shop-button">
+                                <div className="layer-slick shop-button-layer">
+                                    <a href="product.html" className="shop-button">
                                         Shop Now
                                     </a>
                                 </div>
@@ -47,17 +47,17 @@ export default class SliderComponent extends React.Component
                         </div>
                     </div>
                 </div>
-                <div class="container wrap-container" style={{backgroundImage: "url('images/slide-03.jpg')"}}>
-                    <div class="wrap-category-container">
-                        <div class="category-container">
-                            <div class="wrap-category d-flex h-full p-5">
-                                <div class="layer-slick">
-                                    <h2 class="category">
+                <div className="container wrap-container" style={{backgroundImage: "url('images/slide-03.jpg')"}}>
+                    <div className="wrap-category-container">
+                        <div className="category-container">
+                            <div className="wrap-category d-flex h-full p-5">
+                                <div className="layer-slick">
+                                    <h2 className="category">
                                         New arrivals
                                     </h2>
                                 </div>
-                                <div class="layer-slick shop-button-layer">
-                                    <a href="product.html" class="shop-button">
+                                <div className="layer-slick shop-button-layer">
+                                    <a href="product.html" className="shop-button">
                                         Shop Now
                                     </a>
                                 </div>

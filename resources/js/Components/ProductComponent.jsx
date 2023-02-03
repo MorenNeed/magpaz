@@ -2,6 +2,7 @@ import React from "react";
 //import { Card, Container, Row, Col, ListGroup } from "react-bootstrap";
 import '../../css/ProductComponent.css';
 import ProductItemElement from "@/Elements/ProductItemElement";
+import ProductModalElement from "@/Elements/ProductModalElement";
 
 // import '../css/main.css';
 // import '../css/util.css';
@@ -16,11 +17,13 @@ export default class ProductComponent extends React.Component
         products: [],
         overviewClass: '',
         categoryFilter: "all",
-        sortBy: {SortCategory: " ", SortElement: " "}
+        sortBy: "default",
+        filterprice: "all",
       };
 
       this.handleSortByClick = this.handleSortByClick.bind(this);
       this.handleCategoryFilterClick = this.handleCategoryFilterClick.bind(this);
+      this.handleFilterPriceClick = this.handleFilterPriceClick.bind(this);
     }
     filter(TimeoutTime)
     {
@@ -39,31 +42,31 @@ export default class ProductComponent extends React.Component
     sort(TimeoutTime)
     {
       setTimeout(() => {
-        if(this.state.sortBy.SortCategory == "sortBy")
-        {
-          if(this.state.sortBy.SortElement == "default")
+          if(this.state.sortBy == "default")
           {
             const SortedData = this.state.products.sort((a, b) => (a.id > b.id) ? 1 : -1);
             this.setState({products: SortedData});
           }
-          else if(this.state.sortBy.SortElement == "lth")
+          else if(this.state.sortBy == "lth")
           {
             const SortedData = this.state.products.sort((a, b) => (a.price > b.price) ? 1 : -1);
             this.setState({products: SortedData});
           }
-          else if(this.state.sortBy.SortElement == "htl")
+          else if(this.state.sortBy == "htl")
           {
             const SortedData = this.state.products.sort((a, b) => (a.price < b.price) ? 1 : -1);
             this.setState({products: SortedData});
           }
-        }
-        if(this.state.sortBy.SortCategory == "price")
-        {
-          if(this.state.sortBy.SortElement == "all")
+      }, TimeoutTime);
+    }
+    filterprice(TimeoutTime)
+    {
+      setTimeout(() => {
+          if(this.state.filterprice == "all")
           {
             this.filter(0);
           }
-          else if(this.state.sortBy.SortElement == "0150")
+          else if(this.state.filterprice == "0150")
           {
             this.filter(0);
             setTimeout(() => {
@@ -71,7 +74,7 @@ export default class ProductComponent extends React.Component
               this.setState({products: filteredData});
             }, 200);
           }
-          else if(this.state.sortBy.SortElement == "150300")
+          else if(this.state.filterprice == "150300")
           {
             this.filter(0);
             setTimeout(() => {
@@ -79,7 +82,7 @@ export default class ProductComponent extends React.Component
               this.setState({products: filteredData});
             }, 200);
           }
-          else if(this.state.sortBy.SortElement == "300450")
+          else if(this.state.filterprice == "300450")
           {
             this.filter(0);
             setTimeout(() => {
@@ -87,7 +90,7 @@ export default class ProductComponent extends React.Component
               this.setState({products: filteredData});
             }, 200);
           }
-          else if(this.state.sortBy.SortElement == "450600")
+          else if(this.state.filterprice == "450600")
           {
             this.filter(0);
             setTimeout(() => {
@@ -95,15 +98,16 @@ export default class ProductComponent extends React.Component
               this.setState({products: filteredData});
             }, 200);
           }
-          else if(this.state.sortBy.SortElement == "600+")
+          else if(this.state.filterprice == "600+")
           {
-            this.filter(0);
-            setTimeout(() => {
-              const filteredData = this.state.products.filter(product => (product.price > 600));
-              this.setState({products: filteredData});
-            }, 200);
+              this.filter(0);
+              setTimeout(() => {
+                  const filteredData = this.state.products.filter(
+                      (product) => product.price > 600
+                  );
+                  this.setState({ products: filteredData });
+              }, 200);
           }
-        }
       }, TimeoutTime);
     }
     handleCategoryFilterClick(event)
@@ -123,8 +127,21 @@ export default class ProductComponent extends React.Component
         }
       });
       event.target.classList.add('filter-link-active');
-      this.setState({sortBy : {SortCategory : event.target.getAttribute('filtertype'), SortElement: event.target.getAttribute('datafilter')}});
+      this.setState({sortBy : event.target.getAttribute('datafilter')});
       this.sort(200);
+    }
+    handleFilterPriceClick(event)
+    {
+      let activeSort = document.querySelectorAll(`[filtertype=${event.target.getAttribute('filtertype')}]`);
+      activeSort.forEach(item => {
+        if(item.classList.contains('filter-link-active'))
+        {
+          item.classList.remove('filter-link-active');
+        }
+      });
+      event.target.classList.add('filter-link-active');
+      this.setState({filterprice : event.target.getAttribute('datafilter')});
+      this.filterprice(200);
     }
     componentDidMount()
     {
@@ -167,7 +184,7 @@ export default class ProductComponent extends React.Component
         }
       }
     }
-    componentWillMount()
+    UNSAFE_componentWillMount()
     {
       this.filter(3000);
     }
@@ -175,233 +192,233 @@ export default class ProductComponent extends React.Component
         return(
           <>
             {/* Section */}
-            <section class="product-section">
-              <div class="product-container container">
+            <section className="product-section">
+              <div className="product-container container">
                 <div className={"overview " + this.state.overviewClass}>
-                  <h3 class="overview-text">
+                  <h3 className="overview-text">
                     Product Overview
                   </h3>
                 </div>
 
-                <div class="filter-table">
-                  <div class="filter-categories">
-                    <button class="filter-category hov-active" datafilter="all" onClick={this.handleCategoryFilterClick}>
+                <div className="filter-table">
+                  <div className="filter-categories">
+                    <button className="filter-category hov-active" datafilter="all" onClick={this.handleCategoryFilterClick}>
                       All Products
                     </button>
                     {this.props.categories.map(category => (
-                      <button id={category.id} class="filter-category" datafilter={category.title} onClick={this.handleCategoryFilterClick}>
+                      <button key={category.id} className="filter-category" datafilter={category.title} onClick={this.handleCategoryFilterClick}>
                         {category.title}
                       </button>
                     ))}
                   </div>
 
-                  <div class="filter-search">
-                    <div class="filter js-show-filter" onClick={this.handleClick}>
-                      <i class="bi bi-filter icon-filter"></i>
-                      <i class="icon-close-filter bi bi-x dis-none"></i>
+                  <div className="filter-search">
+                    <div className="filter js-show-filter" onClick={this.handleClick}>
+                      <i className="bi bi-filter icon-filter"></i>
+                      <i className="icon-close-filter bi bi-x dis-none"></i>
                       Filter
                     </div>
 
-                    <div class="search js-show-search" onClick={this.handleClick}>
-                      <i class="icon-search bi bi-search"></i>
-                      <i class="icon-close-search bi bi-x dis-none"></i>
+                    <div className="search js-show-search" onClick={this.handleClick}>
+                      <i className="icon-search bi bi-search"></i>
+                      <i className="icon-close-search bi bi-x dis-none"></i>
                       Search
                     </div>
                   </div>
                   
                   {/* <!-- Search product --> */}
-                  <div class="panel-search slide-out">
-                    <div class="wrap-panel-search">
-                      <button class="search-button">
-                        <i class="bi bi-search icon-panel-search"></i>
+                  <div className="panel-search slide-out">
+                    <div className="wrap-panel-search">
+                      <button className="search-button">
+                        <i className="bi bi-search icon-panel-search"></i>
                       </button>
 
-                      <input class="input-search" type="text" name="search-product" placeholder="Search"/>
+                      <input className="input-search" type="text" name="search-product" placeholder="Search"/>
                     </div>	
                   </div>
 
                   {/* <!-- Filter --> */}
-                  <div class="panel-filter slide-out">
-                    <div class="wrap-panel-filter">
-                      <div class="filter-col1">
-                        <div class="col-text">
+                  <div className="panel-filter slide-out">
+                    <div className="wrap-panel-filter">
+                      <div className="filter-col1">
+                        <div className="col-text">
                           Sort By
                         </div>
 
                         <ul>
-                          <li class="col-li">
-                            <button class="filter-link filter-link-active" filtertype="sortBy" datafilter="default" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link filter-link-active" filtertype="sortBy" datafilter="default" onClick={this.handleSortByClick}>
                               Default
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="sortBy" datafilter="popularity" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="sortBy" datafilter="popularity" onClick={this.handleSortByClick}>
                               Popularity
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="sortBy" datafilter="averageRating" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="sortBy" datafilter="averageRating" onClick={this.handleSortByClick}>
                               Average rating
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="sortBy" datafilter="newness" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="sortBy" datafilter="newness" onClick={this.handleSortByClick}>
                               Newness
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="sortBy" datafilter="lth" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="sortBy" datafilter="lth" onClick={this.handleSortByClick}>
                               Price: Low to High
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="sortBy" datafilter="htl" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="sortBy" datafilter="htl" onClick={this.handleSortByClick}>
                               Price: High to Low
                             </button>
                           </li>
                         </ul>
                       </div>
 
-                      <div class="filter-col2">
-                        <div class="col-text">
+                      <div className="filter-col2">
+                        <div className="col-text">
                           Price
                         </div>
 
                         <ul>
-                          <li class="col-li">
-                            <button class="filter-link filter-link-active" filtertype="price" datafilter="all" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link filter-link-active" filtertype="price" datafilter="all" onClick={this.handleFilterPriceClick}>
                               All
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="price" datafilter="0150" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="price" datafilter="0150" onClick={this.handleFilterPriceClick}>
                               0.00UAH - 150.00UAH
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="price" datafilter="150300" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="price" datafilter="150300" onClick={this.handleFilterPriceClick}>
                               150.00UAH - 300.00UAH
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="price" datafilter="300450" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="price" datafilter="300450" onClick={this.handleFilterPriceClick}>
                               300.00UAH - 450.00UAH
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="price" datafilter="450600" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="price" datafilter="450600" onClick={this.handleFilterPriceClick}>
                               450.00UAH - 600.00UAH
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <button class="filter-link" filtertype="price" datafilter="600+" onClick={this.handleSortByClick}>
+                          <li className="col-li">
+                            <button className="filter-link" filtertype="price" datafilter="600+" onClick={this.handleFilterPriceClick}>
                               600.00+ UAH
                             </button>
                           </li>
                         </ul>
                       </div>
 
-                      <div class="filter-col3">
-                        <div class="col-text">
+                      <div className="filter-col3">
+                        <div className="col-text">
                           Color
                         </div>
 
                         <ul>
-                          <li class="col-li">
-                            <span class="color" style={{color: '#222'}}>
-                              <i class="bi bi-circle-fill"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#222'}}>
+                              <i className="bi bi-circle-fill"></i>
                             </span>
 
-                            <button class="filter-link" filtertype="color" datafilter="black">
+                            <button className="filter-link" filtertype="color" datafilter="black">
                               Black
                             </button>
                           </li>
 
-                          <li class="col-li">
-                            <span class="color" style={{color: '#4272d7'}}>
-                              <i class="bi bi-circle-fill"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#4272d7'}}>
+                              <i className="bi bi-circle-fill"></i>
                             </span>
 
-                            <a class="filter-link filter-link-active">
+                            <a className="filter-link filter-link-active">
                               Blue
                             </a>
                           </li>
 
-                          <li class="col-li">
-                            <span class="color" style={{color: '#b3b3b3'}}>
-                              <i class="bi bi-circle-fill"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#b3b3b3'}}>
+                              <i className="bi bi-circle-fill"></i>
                             </span>
 
-                            <a class="filter-link">
+                            <a className="filter-link">
                               Grey
                             </a>
                           </li>
 
-                          <li class="col-li">
-                            <span class="color" style={{color: '#00ad5f'}}>
-                              <i class="bi bi-circle-fill"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#00ad5f'}}>
+                              <i className="bi bi-circle-fill"></i>
                             </span>
 
-                            <a class="filter-link">
+                            <a className="filter-link">
                               Green
                             </a>
                           </li>
 
-                          <li class="col-li">
-                            <span class="color" style={{color: '#fa4251'}}>
-                              <i class="bi bi-circle-fill"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#fa4251'}}>
+                              <i className="bi bi-circle-fill"></i>
                             </span>
 
-                            <a class="filter-link">
+                            <a className="filter-link">
                               Red
                             </a>
                           </li>
 
-                          <li class="col-li">
-                            <span class="color" style={{color: '#aaa'}}>
-                              <i class="bi bi-circle"></i>
+                          <li className="col-li">
+                            <span className="color" style={{color: '#aaa'}}>
+                              <i className="bi bi-circle"></i>
                             </span>
 
-                            <a class="filter-link">
+                            <a className="filter-link">
                               White
                             </a>
                           </li>
                         </ul>
                       </div>
 
-                      <div class="filter-col4">
-                        <div class="col-text">
+                      <div className="filter-col4">
+                        <div className="col-text">
                           Tags
                         </div>
 
-                        <div class="tags-wrap">
-                          <a href="#" class="tag">
+                        <div className="tags-wrap">
+                          <a href="#" className="tag">
                             Fashion
                           </a>
 
-                          <a href="#" class="tag">
+                          <a href="#" className="tag">
                             Lifestyle
                           </a>
 
-                          <a href="#" class="tag">
+                          <a href="#" className="tag">
                             Denim
                           </a>
 
-                          <a href="#" class="tag">
+                          <a href="#" className="tag">
                             Streetstyle
                           </a>
 
-                          <a href="#" class="tag">
+                          <a href="#" className="tag">
                             Crafts
                           </a>
                         </div>
@@ -410,18 +427,24 @@ export default class ProductComponent extends React.Component
                   </div>
                 </div>
 
-                <div class="row isotope-grid">
+                <ul className="row isotope-grid">
                   {this.state.products.map(product => (
                     <ProductItemElement key={product.id} product={product}/>
                   )).slice(0,5)}
-                </div>
+                </ul>
 
                 {/* <!-- Load more --> */}
-                <div class="load-more">
+                <div className="load-more">
                   <a href="#">
                     Load More
                   </a>
                 </div>
+
+                <ul className="row isotope-grid">
+                  {this.state.products.map(product => (
+                    <ProductModalElement key={product.id} product={product}/>
+                  )).slice(0,5)}
+                </ul>
               </div>
             </section>
           </>

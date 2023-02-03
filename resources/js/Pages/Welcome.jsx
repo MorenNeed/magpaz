@@ -23,7 +23,7 @@ export default class MainPage extends React.Component
         document.getElementById('loader').classList.add('hide-loader-container');
       }, 2000);
   }
-  componentWillMount()
+  UNSAFE_componentWillMount()
   {
     fetch('http://localhost:8000/api/products')
     .then(response => response.json())

@@ -1,0 +1,156 @@
+.wrap-modal
+{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    overflow: auto;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    visibility: hidden;
+    opacity: 0;
+    padding-bottom: 20px;
+    padding-top: 60px;
+}
+.wrap-modal .container
+{
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+}
+.show-modal
+{
+    visibility: visible;
+    opacity: 1;
+}
+.overlay-modal
+{
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.8;
+}
+.how-pos3-parent
+{
+    position: relative;
+    background-color: #fff;
+    padding-bottom: 30px;
+    padding-top: 60px;
+}
+.how3
+{
+    opacity: 0.6;
+}
+.how-pos3
+{
+    position: absolute;
+    top: -35px;
+    right: 0px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    -ms-transition: all 0.4s;
+}
+.p-b-30
+{
+    padding-bottom: 30px;
+}
+.p-r-30
+{
+    padding-right: 30px;
+}
+.p-l-25, .p-lr-25
+{
+    padding-left: 25px;
+}
+.wrap-slick3
+{
+    position: relative;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.wrap-slick3-dots
+{
+    width: 11.111111%;
+}
+.slick3-dots li
+{
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 27px;
+}
+.slick3-dots li img
+{
+    width: 100%;
+}
+.slick3-dot-overlay
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    border: 2px solid transparent;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+@media (max-width: 1600px)
+{
+    .wrap-modal .container
+    {
+        max-width: 1200px;
+    }
+}
+@media (max-width: 1200px)
+{
+    .wrap-modal .container
+    {
+        max-width: 1140px;
+    }
+}
+@media (max-width: 992px)
+{
+    .wrap-modal .container
+    {
+        max-width: 960px;
+    }
+}
+@media (max-width: 768px)
+{
+    .wrap-modal .container
+    {
+        max-width: 720px;
+    }
+}
+@media (max-width: 576px)
+{
+    .wrap-modal .container
+    {
+        max-width: 540px;
+    }
+}
