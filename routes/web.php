@@ -70,6 +70,10 @@ Route::get('/products', function() {
     ]);
 })->name('products');
 
+Route::get('/checkout', function() {
+    return Inertia::render('Checkout');
+})->middleware(['auth'])->name('checkout');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

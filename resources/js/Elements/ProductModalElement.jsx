@@ -3,17 +3,15 @@ import "../../css/ProductModalElement.css";
 import ImageGallery from 'react-image-gallery';
 import { toInteger } from "lodash";
 
-export default class ProductModalElement extends React.Component
-{
-    constructor(props)
-    {
+export default class ProductModalElement extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            selected_product: [],
-            selected_size: 'default',
-            selected_color: 'default',
-            num_of_product: 1
-        }
+            selected_product: new Object(),
+            selected_size: "default",
+            selected_color: "default",
+            num_of_product: 1,
+        };
         this.handleClick = this.handleClick.bind(this);
         this.handleUpClick = this.handleUpClick.bind(this);
         this.handleDownClick = this.handleDownClick.bind(this);
@@ -22,78 +20,74 @@ export default class ProductModalElement extends React.Component
     }
     handleInputChange(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     }
-    handleClick(event)
-    {
-        document.getElementById("wrap-modal" + this.props.product.id).classList.remove('show-modal');
+    handleClick(event) {
+        document
+            .getElementById("wrap-modal" + this.props.product.id)
+            .classList.remove("show-modal");
     }
-    handleUpClick()
-    {
-        if(this.state.num_of_product < this.props.product.count)
-        {
+    handleUpClick() {
+        if (this.state.num_of_product < this.props.product.count) {
             let newNum = this.state.num_of_product + 1;
             this.setState({ num_of_product: newNum });
         }
     }
-    handleDownClick()
-    {
-        if(this.state.num_of_product > 1)
-        {
+    handleDownClick() {
+        if (this.state.num_of_product > 1) {
             let newNum = this.state.num_of_product - 1;
             this.setState({ num_of_product: newNum });
         }
     }
-    handleSubmit(event)
-    {
+    handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
-        this.setState({selected_product: this.props.product});
-        setTimeout(() => {
-            console.log(this.state.selected_product);
-            this.state.selected_product.map((element) => {
-                formData.append(index,element);
-                console.log(element);
-            });
-            formData.append('selected_size', this.state.selected_size);
-            formData.append('selected_color', this.state.selected_size);
-            formData.append('num_of_products', this.state.num_of_product);
-    
-            var object = {};
-            formData.forEach(function(value, key){
-                object[key] = value;
-            });
-            var json = JSON.stringify(object);
-            console.log(json);
-        }, 200);
+
+        formData.append("selected_product", this.props.product);
+        formData.append("selected_size", this.state.selected_size);
+        formData.append("selected_color", this.state.selected_size);
+        formData.append("num_of_products", this.state.num_of_product);
+
+        var object = {};
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        var json = JSON.stringify(object);
+        console.log(json);
     }
-    render()
-    {
+    render() {
         const images = [
             {
-              original: this.props.product.image_url,
-              thumbnail: this.props.product.image_url,
-              originalHeight: '10rem'
+                original: this.props.product.image_url,
+                thumbnail: this.props.product.image_url,
+                originalHeight: "10rem",
             },
             {
-              original: 'images/product-02.jpg',
-              thumbnail: 'images/product-02.jpg',
-              originalHeight: '10rem'
+                original: "images/product-02.jpg",
+                thumbnail: "images/product-02.jpg",
+                originalHeight: "10rem",
             },
             {
-              original: 'images/product-03.jpg',
-              thumbnail: 'images/product-03.jpg',
-              originalHeight: '10rem'
+                original: "images/product-03.jpg",
+                thumbnail: "images/product-03.jpg",
+                originalHeight: "10rem",
             },
-          ];
+        ];
         return (
             <li>
-                <div className="wrap-modal" id={"wrap-modal" + this.props.product.id}>
+                <div
+                    className="wrap-modal"
+                    id={"wrap-modal" + this.props.product.id}
+                >
                     <div className="overlay-modal js-hide-modal"></div>
                     <div className="container">
                         <div className="how-pos3-parent">
-                            <button className="how-pos3 hov3 js-hide-modal1" id={this.props.product.id} onClick={this.handleClick}>
+                            <button
+                                className="how-pos3 hov3 js-hide-modal1"
+                                id={this.props.product.id}
+                                onClick={this.handleClick}
+                            >
                                 <img
                                     src="images/icons/icon-close.png"
                                     alt="CLOSE"
@@ -103,7 +97,10 @@ export default class ProductModalElement extends React.Component
                                 <div className="col-md-6 col-lg-7 image-gallery-wrap">
                                     <div className="image-gallery">
                                         <div className="wrap-slick3">
-                                            <ImageGallery items={images} thumbnailPosition={"left"}/>
+                                            <ImageGallery
+                                                items={images}
+                                                thumbnailPosition={"left"}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +119,11 @@ export default class ProductModalElement extends React.Component
                                             {this.props.product.content}
                                         </p>
 
-                                        <form name="modal-form" className="modal-input-wrap" onSubmit={this.handleSubmit}>
+                                        <form
+                                            name="modal-form"
+                                            className="modal-input-wrap"
+                                            onSubmit={this.handleSubmit}
+                                        >
                                             <div className="modal-input-size">
                                                 <div className="input-size-text">
                                                     Size
@@ -135,22 +136,35 @@ export default class ProductModalElement extends React.Component
                                                             name="selected_size"
                                                             tabIndex="-1"
                                                             aria-hidden="true"
-                                                            onChange={this.handleInputChange}
-                                                            value={this.state.selected_size}
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
+                                                            value={
+                                                                this.state
+                                                                    .selected_size
+                                                            }
                                                         >
-                                                            <option value={'default'} disabled>
+                                                            <option
+                                                                value={
+                                                                    "default"
+                                                                }
+                                                                disabled
+                                                            >
                                                                 Choose an option
                                                             </option>
-                                                            <option value={'s'}>
+                                                            <option value={"s"}>
                                                                 Size S
                                                             </option>
-                                                            <option value={'m'}>
+                                                            <option value={"m"}>
                                                                 Size M
                                                             </option>
-                                                            <option value={'l'}>
+                                                            <option value={"l"}>
                                                                 Size L
                                                             </option>
-                                                            <option value={'xl'}>
+                                                            <option
+                                                                value={"xl"}
+                                                            >
                                                                 Size XL
                                                             </option>
                                                         </select>
@@ -169,20 +183,37 @@ export default class ProductModalElement extends React.Component
                                                             name="selected_color"
                                                             tabIndex="-1"
                                                             aria-hidden="true"
-                                                            onChange={this.handleInputChange}
-                                                            value={this.state.selected_color}
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
+                                                            value={
+                                                                this.state
+                                                                    .selected_color
+                                                            }
                                                         >
-                                                            <option value={'default'} disabled>
+                                                            <option
+                                                                value={
+                                                                    "default"
+                                                                }
+                                                                disabled
+                                                            >
                                                                 Choose an option
                                                             </option>
                                                             <option>Red</option>
-                                                            <option value={'blue'}>
+                                                            <option
+                                                                value={"blue"}
+                                                            >
                                                                 Blue
                                                             </option>
-                                                            <option value={'white'}>
+                                                            <option
+                                                                value={"white"}
+                                                            >
                                                                 White
                                                             </option>
-                                                            <option value={'grey'}>
+                                                            <option
+                                                                value={"grey"}
+                                                            >
                                                                 Grey
                                                             </option>
                                                         </select>
@@ -192,7 +223,13 @@ export default class ProductModalElement extends React.Component
                                             <div className="modal-input-submit">
                                                 <div className="input-submit-wrap">
                                                     <div className="wrap-num-product">
-                                                        <div className="btn-num-product-down" onClick={this.handleDownClick}>
+                                                        <div
+                                                            className="btn-num-product-down"
+                                                            onClick={
+                                                                this
+                                                                    .handleDownClick
+                                                            }
+                                                        >
                                                             <i className="fs-16 zmdi zmdi-minus"></i>
                                                         </div>
                                                         <input
@@ -200,14 +237,30 @@ export default class ProductModalElement extends React.Component
                                                             className="num-product"
                                                             type="number"
                                                             name="num_of_product"
-                                                            value={this.state.num_of_product}
-                                                            onChange={this.handleInputChange}
+                                                            value={
+                                                                this.state
+                                                                    .num_of_product
+                                                            }
+                                                            onChange={
+                                                                this
+                                                                    .handleInputChange
+                                                            }
                                                         />
-                                                        <div className="btn-num-product-up" onClick={this.handleUpClick}>
+                                                        <div
+                                                            className="btn-num-product-up"
+                                                            onClick={
+                                                                this
+                                                                    .handleUpClick
+                                                            }
+                                                        >
                                                             <i className="fs-16 zmdi zmdi-plus"></i>
                                                         </div>
                                                     </div>
-                                                    <input type="submit" className="js-addcart-detail" value={'Add to cart'}/>
+                                                    <input
+                                                        type="submit"
+                                                        className="js-addcart-detail"
+                                                        value={"Add to cart"}
+                                                    />
                                                 </div>
                                             </div>
                                         </form>

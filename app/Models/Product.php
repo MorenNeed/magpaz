@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
     protected $table = 'products';
     protected $guarded = false;
 
@@ -16,6 +17,7 @@ class Product extends Model
     }
     public function getImageUrlAttribute()
     {
-        return url('storage/' . $this->preview_image);
+        // return url('storage/' . $this->preview_image);
+        return $this->preview_image;
     }
 }

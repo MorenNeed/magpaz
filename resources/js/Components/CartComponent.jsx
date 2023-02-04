@@ -1,6 +1,7 @@
 import React from "react";
 import "../../css/CartComponent.css";
 import { Scrollbars } from 'react-custom-scrollbars';
+import { Link } from "react-router-dom";
 
 export default class CartComponent extends React.Component
 {
@@ -81,13 +82,13 @@ export default class CartComponent extends React.Component
                     <div className="header-cart-total">Total: $75.00</div>
                     <div className="header-cart-buttons">
                       <a
-                        href="shoping-cart.html"
+                        href="/checkout"
                         className="header-cart-viewcart"
                       >
                         View Cart
                       </a>
                       <a
-                        href="shoping-cart.html"
+                        href="/checkout"
                         className="header-cart-checkout"
                       >
                         Check Out

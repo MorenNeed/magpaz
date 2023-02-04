@@ -46,4 +46,8 @@ class User extends AuthUser
     {
         return self::getGenders()[$this->gender];
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 }
