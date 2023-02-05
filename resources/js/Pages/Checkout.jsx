@@ -45,8 +45,8 @@ export default class MainPage extends React.Component
             <div className="loader-box"></div>
           </div>
         </div>
-        <HeaderComponent navFix={this.state.activeClass}/>
-        <BreadcrumbsComponent refName={'Shopping Cart'}/>
+        <HeaderComponent navFix={this.state.activeClass} page={'CheckoutPage'}/>
+        <BreadcrumbsComponent refName={'Checkout'}/>
         <CartComponent/>
         <CheckoutFormComponent/>
         <FooterComponent/>

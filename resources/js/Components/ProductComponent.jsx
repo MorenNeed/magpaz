@@ -483,7 +483,7 @@ export default class ProductComponent extends React.Component {
                                         product={product}
                                     />
                                 ))
-                                .slice(0, 5)}
+                            }
                         </ul>
 
                         {/* <!-- Load more --> */}
@@ -500,7 +500,7 @@ export default class ProductComponent extends React.Component {
                                         product={product}
                                     />
                                 ))
-                                .slice(0, 5)}
+                            }
                         </ul>
                     </div>
                 </section>

@@ -36,7 +36,6 @@ export default class ProductPage extends React.Component
 
   render()
   {
-    document.title = "MagPaz";
     window.addEventListener('scroll', () => {
       let activeClass = '';
       if(window.scrollY > 342){

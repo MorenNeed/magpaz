@@ -13,7 +13,7 @@ export default class HeaderComponent extends React.Component
     }
     componentDidMount()
     {
-      if(this.props.page == "ProductPage")
+      if(this.props.page == "ProductPage" || this.props.page == "CheckoutPage")
       {
         this.setState({headerClass: 'header-product'});
         this.setState({navbarClass: 'navbar-product'});

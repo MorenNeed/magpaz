@@ -9,17 +9,13 @@ export default class BreadcrumbsComponent extends React.Component
     {
         return (
             <>
-                <div class="container breadcrumb-container">
+                <div className="container breadcrumb-container">
                     <Breadcrumb>
                         <BreadcrumbItem className="bread-crumb" href="/">
                             Home
-                            <i
-                                class="fa fa-angle-right m-l-9 m-r-10"
-                                aria-hidden="true"
-                            ></i>
                         </BreadcrumbItem>
-                        <BreadcrumbItem className="bread-crumb">
-                            <span className="stext-109 cl4">
+                        <BreadcrumbItem href={'/' + this.props.refName.toLowerCase()} className="bread-crumb">
+                            <span>
                                 {this.props.refName}
                             </span>
                         </BreadcrumbItem>
