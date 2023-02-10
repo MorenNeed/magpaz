@@ -3,6 +3,65 @@ import "../../css/CheckoutFormComponent.css";
 
 
 export default class CheckoutFormComponent extends React.Component {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            shipping_select: [{SiteKey: '1', Description: '1'}],
+            shipping_select_error: 'There are no shipping methods available. Please double check your address, or contact us if you need any help.'
+          };
+          this.handleSelectedMethodShipment = this.handleSelectedMethodShipment.bind(this);
+    }
+    handleSelectedMethodShipment(event)
+    {
+        event.preventDefault();
+        let method = document.getElementsByName('method_of_shipping')[0].value;
+        let state = document.getElementsByName('state')[0].value;
+        let address = document.getElementsByName('postcode')[0].value;
+        console.log(method);
+        if(method == "NovaPoshta")
+        {
+            let data = {
+                apiKey: "353e2cbf3f21d815473a46050346bfbd",
+                modelName: "Address",
+                calledMethod: "getStreet",
+                methodProperties: {
+                    FindByString: address,
+                    Page: "1",
+                    Limit: ""
+                },
+            };
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 
+                        'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            }
+            fetch('https://api.novaposhta.ua/v2.0/json/', options)
+            .then(response => response.json())
+            .then(function(data){
+            this.setState({shipping_select: data.data}, () => {
+            });
+            }.bind(this));
+        }
+
+        this.setState({shipping_select_error: ''});
+        document.getElementById('shipping_method_address').style.display = 'block';
+    }
+    handleUpClick() {
+        if (this.state.num_of_product < this.props.product.count) {
+            let newNum = this.state.num_of_product + 1;
+            this.setState({ num_of_product: newNum });
+        }
+    }
+    handleDownClick() {
+        if (this.state.num_of_product > 1) {
+            let newNum = this.state.num_of_product - 1;
+            this.setState({ num_of_product: newNum });
+        }
+    }
     render() {
         return (
             <>
@@ -145,10 +204,21 @@ export default class CheckoutFormComponent extends React.Component {
                                         </div>
                                         <div className="shipping-methods-wrap">
                                             <p className="shipping-missing">
-                                                There are no shipping methods
-                                                available. Please double check
-                                                your address, or contact us if
-                                                you need any help.
+                                                {
+                                                    this.state
+                                                        .shipping_select_error
+                                                }
+                                                <select
+                                                    id={
+                                                        "shipping_method_address"
+                                                    }
+                                                    defaultValue={"default"}
+                                                >
+                                                    <option disabled value={'default'}>Select ...</option>
+                                                    {this.state.shipping_select.map((viddil) => (
+                                                        <option value={viddil.SiteKey}>{viddil.Description}</option>
+                                                    ))}
+                                                </select>
                                             </p>
                                             <div className="shipping-methods">
                                                 <span className="calculate-shipping">
@@ -157,15 +227,23 @@ export default class CheckoutFormComponent extends React.Component {
                                                 <div className="rs1-select2 rs2-select2 country-select-wrap">
                                                     <select
                                                         className="js-select2 select2-hidden-accessible country-select"
-                                                        name="time"
+                                                        name="method_of_shipping"
                                                         tabIndex="-1"
                                                         aria-hidden="true"
+                                                        defaultValue={"default"}
                                                     >
-                                                        <option>
-                                                            Select a country...
+                                                        <option
+                                                            disabled
+                                                            value={"default"}
+                                                        >
+                                                            Select a method...
                                                         </option>
-                                                        <option>USA</option>
-                                                        <option>UK</option>
+                                                        <option>
+                                                            NovaPoshta
+                                                        </option>
+                                                        <option>
+                                                            UkrPoshta
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div className="state-input-wrap">
@@ -185,9 +263,15 @@ export default class CheckoutFormComponent extends React.Component {
                                                     />
                                                 </div>
                                                 <div className="update-totals-wrap">
-                                                    <div className="update-totals">
+                                                    <button
+                                                        className="update-totals"
+                                                        onClick={
+                                                            this
+                                                                .handleSelectedMethodShipment
+                                                        }
+                                                    >
                                                         Update Totals
-                                                    </div>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
