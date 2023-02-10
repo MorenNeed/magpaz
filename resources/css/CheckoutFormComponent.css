@@ -499,6 +499,11 @@ input.num-product {
     padding-right: 15px;
     padding-left: 15px;
 }
+.update-totals:hover
+{
+    color: #fff;
+    background-color: #6774D5;
+}
 .total-wrap
 {
     -ms-align-items: flex-start;
@@ -569,4 +574,10 @@ input.num-product {
 .proceed-to-checkout:hover
 {
     background-color: #6774D5;
+}
+
+#shipping_method_address
+{
+    display: none;
+    width: 100%;
 }
