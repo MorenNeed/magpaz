@@ -191,6 +191,8 @@ export default class ProductComponent extends React.Component {
         this.filter(3000);
     }
     render() {
+        console.log(this.props.user)
+        // console.log(this.props.orderproducts);
         return (
             <>
                 {/* Section */}

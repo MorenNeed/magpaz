@@ -16,7 +16,9 @@ export default class MainPage extends React.Component
       products: [],
       categories: [],
       tags: [],
-      colors: []
+      colors: [],
+      user: [],
+      orderproducts: [],
     };
   }
   componentDidMount()
@@ -47,6 +49,17 @@ export default class MainPage extends React.Component
     .then(function(data){
       this.setState({colors: data.data});
     }.bind(this));
+    fetch('http://localhost:8000/api/currentuser')
+    .then(response => response.json())
+    .then(function(data){
+      this.setState({user: data.data});
+    }.bind(this));
+    fetch(`http://localhost:8000/orderproducts/show/${this.state.user.id}`)
+    .then(response => response.json())
+    .then(function(data){
+      this.setState({orderproducts: data.data});
+    }.bind(this));
+
   }
   render()
   {
@@ -68,7 +81,7 @@ export default class MainPage extends React.Component
         <CartComponent/>
         <SliderComponent/>
         <BannerComponent/>
-        <ProductComponent products={this.state.products} categories={this.state.categories} tags={this.state.tags} colors={this.state.colors}/>
+        <ProductComponent products={this.state.products} categories={this.state.categories} tags={this.state.tags} colors={this.state.colors} user={this.state.user} orderproducts={this.state.orderproducts}/>
         <FooterComponent/>
       </>
     );

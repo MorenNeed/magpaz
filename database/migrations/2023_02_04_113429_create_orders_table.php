@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('billing_tax');
             $table->integer('billing_total');
             $table->string('payment_gateway')->default('stripe');
-            $table->boolean('shipped')->default(false);
+            $table->string('status');
             $table->string('error')->nullable();
 
 

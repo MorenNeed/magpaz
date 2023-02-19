@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('order_id')->unsigned()->nullable()->index()->constrained('orders')->onUpdate('cascade')->onDelete('set null');
-            $table->foreignId('product_id')->unsigned()->nullable()->index()->constrained('products')->onUpdate('cascade')->onDelete('set null');
-
-            $table->integer('quantity')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }
