@@ -42,19 +42,8 @@ export default class ProductModalElement extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData();
 
-        formData.append("selected_product", this.props.product);
-        formData.append("selected_size", this.state.selected_size);
-        formData.append("selected_color", this.state.selected_size);
-        formData.append("num_of_products", this.state.num_of_product);
-
-        var object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
-        var json = JSON.stringify(object);
-        console.log(json);
+        this.props.onAddToCart(this.props.product, this.state.num_of_product);
     }
     render() {
         const images = [

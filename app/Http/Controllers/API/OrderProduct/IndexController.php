@@ -22,9 +22,10 @@ class IndexController extends Controller
         return response()->json($OrderProduct, 201);
     }
 
-    public function show($userId, OrderProduct $OrderProduct)
+    public function show($userId)
     {
-        $OrderProduct = $OrderProduct::where('user_id', $userId);
+        $OrderProducts = OrderProduct::all();
+        $OrderProduct = $OrderProducts->where('user_id', $userId);
         return response()->json($OrderProduct);
     }
 

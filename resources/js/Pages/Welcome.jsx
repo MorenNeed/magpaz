@@ -17,12 +17,52 @@ export default class MainPage extends React.Component
       categories: [],
       tags: [],
       colors: [],
-      user: [],
-      orderproducts: [],
+      cartItems: []
     };
+    this.addToCart = this.addToCart.bind(this);
+    this.updateCart = this.updateCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
+  addToCart(product, num_of_product) {
+    // Отримати поточний список товарів зі стану компонента
+    const cartItems = [...this.state.cartItems];
+
+    let alreadyInCart = false;
+
+    cartItems.forEach((item) => {
+      if (item.id === product.id) {
+        if((item.quantity + num_of_product) < product.count)
+        {
+          item.quantity += num_of_product;
+        }
+        alreadyInCart = true;
+      }
+    });
+
+    if (!alreadyInCart) {
+      cartItems.push({...product, quantity: num_of_product});
+    }
+
+    this.updateCart(cartItems);
+  }
+  updateCart = (cartItems) => {
+    this.setState({ cartItems: cartItems });
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+  };
+  removeFromCart = (product) => {
+    const cartItems = this.state.cartItems.slice();
+    this.setState({
+      cartItems: cartItems.filter((x) => x.id !== product.id),
+    }, () => {
+      sessionStorage.setItem("cartItems", JSON.stringify(this.state.cartItems));
+    });
+  };
   componentDidMount()
   {
+    const cartItems = sessionStorage.getItem("cartItems");
+    if (cartItems) {
+        this.setState({ cartItems: JSON.parse(cartItems) });
+    }
     setTimeout(() => {
         document.getElementById('loader').classList.add('hide-loader-container');
       }, 2000);
@@ -49,17 +89,6 @@ export default class MainPage extends React.Component
     .then(function(data){
       this.setState({colors: data.data});
     }.bind(this));
-    fetch('http://localhost:8000/api/currentuser')
-    .then(response => response.json())
-    .then(function(data){
-      this.setState({user: data.data});
-    }.bind(this));
-    fetch(`http://localhost:8000/orderproducts/show/${this.state.user.id}`)
-    .then(response => response.json())
-    .then(function(data){
-      this.setState({orderproducts: data.data});
-    }.bind(this));
-
   }
   render()
   {
@@ -77,11 +106,11 @@ export default class MainPage extends React.Component
             <div className="loader-box"></div>
           </div>
         </div>
-        <HeaderComponent navFix={this.state.activeClass}/>
-        <CartComponent/>
+        <HeaderComponent navFix={this.state.activeClass} cartItemsLength={this.state.cartItems.length}/>
+        <CartComponent cartItems={this.state.cartItems} removeFromCart={this.removeFromCart}/>
         <SliderComponent/>
         <BannerComponent/>
-        <ProductComponent products={this.state.products} categories={this.state.categories} tags={this.state.tags} colors={this.state.colors} user={this.state.user} orderproducts={this.state.orderproducts}/>
+        <ProductComponent products={this.state.products} categories={this.state.categories} tags={this.state.tags} colors={this.state.colors} onAddToCart={this.addToCart}/>
         <FooterComponent/>
       </>
     );

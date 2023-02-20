@@ -40,6 +40,7 @@ use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ShowController as UserShowController;
 use App\Http\Controllers\User\StoreController as UserStoreController;
 use App\Http\Controllers\User\UpdateController as UserUpdateController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'user' => Auth::user()
     ]);
 });
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Category\IndexController as CategoryIndexController;
 use App\Http\Controllers\API\Color\IndexController as ColorIndexController;
+use App\Http\Controllers\Api\Order\IndexController as OrderIndexController;
 use App\Http\Controllers\Api\OrderProduct\IndexController as OrderProductIndexController;
 use App\Http\Controllers\API\Product\IndexController;
 use App\Http\Controllers\API\Tag\IndexController as TagIndexController;
@@ -24,7 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/currentuser', [UserIndexController::class, 'getCurrentUser']);
+Route::post('/order/store', [OrderIndexController::class, 'store']);
+
+Route::post('orderproducts/store', [OrderProductIndexController::class, 'store']);
 
 Route::get('orderproducts/show/{userId}', [OrderProductIndexController::class, 'show']);
 

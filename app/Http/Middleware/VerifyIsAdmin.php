@@ -19,7 +19,7 @@ class VerifyIsAdmin
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if(!(Auth::check() && $user->email == 'MorenNeed@gmail.com'))
+        if(!(Auth::check() && $user->email == 'morenneed@gmail.com'))
         {
             return redirect()->route('dashboard');
         }

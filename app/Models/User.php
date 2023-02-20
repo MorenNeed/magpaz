@@ -48,6 +48,6 @@ class User extends AuthUser
     }
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany(Order::class);
     }
 }
